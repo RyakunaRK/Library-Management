@@ -22,5 +22,9 @@ namespace Library_Management.Entities
             this.ISBN = isbn;
             this.AnoDePublicacao = ano;
         }
+
+        public Livro()
+        {
+        }
     }
 }
