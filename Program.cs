@@ -1,5 +1,6 @@
 ﻿using Library_Management.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Library_Management
 {
@@ -31,19 +32,19 @@ namespace Library_Management
                     CadastrarLivro(livros);
                     break;
                 case 2:
-                    VerLivros(livros);
+                    VerLivrosMenu(livros);
                     break;
                 case 3:
                     Console.Clear();
                     Console.Write("Id do livro a ser procurado: ");
                     int id = int.Parse(Console.ReadLine());
-                    ProcurarLivro(livros,id);
+                    ProcurarLivroMenu(livros,id);
                     break;
                 case 4:
                     Console.Clear();
                     Console.Write("Id do livro a ser excluído: ");
                     id = int.Parse(Console.ReadLine());
-                    DeletarLivro(livros,id);
+                    DeletarLivroMenu(livros,id);
                     break;
                 case 5:
                     return;
@@ -85,82 +86,28 @@ namespace Library_Management
 
         }
 
-        public static void VerLivros(List<Livro> livros)
+        public static void VerLivrosMenu(List<Livro> livros)
         {
             Console.Clear();
-            int num = 1;
-            foreach (var livro in livros) 
-            {
-                Console.Write($"-----   LIVRO {num}   -----\n\n");
-                Console.WriteLine($"ID: {livro.Id}");
-                Console.WriteLine($"Título: {livro.Titulo}");
-                Console.WriteLine($"Autor: {livro.Autor}");
-                Console.WriteLine($"ISBN: {livro.ISBN}");
-                Console.WriteLine($"Ano de publicação: {livro.AnoDePublicacao}");
-                Console.Write("\n---------------------------\n");
-                num++;
-            }
-
-            Console.WriteLine("\n\nPRESSIONE ENTER PARA VOLTAR PARA O MENU INICIAL");
-            Console.ReadLine();
+            Livro livro = new Livro();
+            livro.VerLivros(livros);
             Menu(livros);
         }
 
-        public static void ProcurarLivro(List<Livro> livros,int id)
+        public static void ProcurarLivroMenu(List<Livro> livros,int id)
         {
             Console.Clear();
-            int flag = 0;
-            foreach (var livro in livros)
-            {
-                if (livro.Id == id)
-                {
-                    Console.Write($"-----   LIVRO   -----\n\n");
-                    Console.WriteLine($"ID: {livro.Id}");
-                    Console.WriteLine($"Título: {livro.Titulo}");
-                    Console.WriteLine($"Autor: {livro.Autor}");
-                    Console.WriteLine($"ISBN: {livro.ISBN}");
-                    Console.WriteLine($"Ano de publicação: {livro.AnoDePublicacao}");
-                    Console.Write("\n---------------------------\n");
-                    flag = 1;
-                }
-            }
-            if (flag == 0)
-                Console.WriteLine("Livro não encontrado!");
-
-            Console.WriteLine("\n\nPRESSIONE ENTER PARA VOLTAR PARA O MENU INICIAL");
-            Console.ReadLine();
+            Livro livro = new Livro();
+            livro.ProcurarLivro(livros, id);
             Menu(livros);
         }
 
-        public static void DeletarLivro(List<Livro> livros, int id) 
+        public static void DeletarLivroMenu(List<Livro> livros, int id) 
         {
             Console.Clear();
-            int flag = 0;
-            Livro removerLivro = new Livro();
-
-            foreach (var livro in livros)
-            {
-                if (livro.Id == id)
-                {
-                    removerLivro = livro;
-                    flag = 1;
-                }
-            }
-
-            if (flag == 0)
-            {
-                Console.WriteLine("Livro não encontrado!\n\nPRESSIONE ENTER PARA VOLTAR PARA O MENU INICIAL");
-                Console.ReadLine();
-                Menu(livros);
-            }
-            else
-            {
-                livros.Remove(removerLivro);
-                Console.WriteLine("Livro removido com SUCESSO! \n\nPRESSIONE ENTER PARA VOLTAR PARA O MENU INICIAL");
-                Console.ReadLine();
-                Menu(livros);
-            }
-
+            Livro livro = new Livro();
+            livros = livro.DeletarLivro(livros,id);
+            Menu(livros);
         }
     }
 }
